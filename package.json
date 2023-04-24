@@ -1,0 +1,17 @@
+{
+  "name": "AntiRemove",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node ./src/index.js"
+  },
+  "dependencies": {
+    "sheweny": "^4.0.0",
+    "discord.js": "^14.0.0"
+  },
+  "devDependencies": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
