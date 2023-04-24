@@ -7,10 +7,10 @@
     "start": "node ./src/index.js"
   },
   "dependencies": {
-    "sheweny": "^4.0.0",
-    "discord.js": "^14.0.0"
+    "discord.js": "^14.0.0",
+    "node-fetch": "^2.6.9",
+    "sheweny": "^4.0.0"
   },
-  "devDependencies": {},
   "keywords": [],
   "author": "",
   "license": "ISC"
