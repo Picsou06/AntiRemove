@@ -1,10 +1,6 @@
 const { ShewenyClient } = require("sheweny");
 const fetch = require("node-fetch");
 const config = require("../config.json");
-const SERVER_ID = '939468612815687680'; // ID de votre serveur
-const CHANNEL_ID = '1100112493784862720'; // ID du canal à surveiller
-const MINECRAFT_API_URL = 'https://api.mojang.com/users/profiles/minecraft/';
-const WEBHOOK_URL = 'https://discord.com/api/webhooks/1100184486441918484/iGOaF09-jPG6JFmvDj8Ecn_gTibDwNYkmiWUCrZxusq_qnh_53ot75IyJ0fhd5W60qB9'; // Remplacez WEBHOOK_ID et WEBHOOK_TOKEN par les valeurs de votre webhook
 
 const client = new ShewenyClient({
   intents: ["Guilds", "GuildMessages", "MessageContent"],
@@ -34,15 +30,14 @@ const client = new ShewenyClient({
 });
 
 client.on('messageCreate', async message => {
-  console.log("Test message")
   // Vérifie si le message provient du canal spécifié dans le serveur spécifié
   // message.channel.id === CHANNEL_ID && message.guild?.id === SERVER_ID
-  if (!message.author.bot && message.channelId==CHANNEL_ID) {
+  if (!message.author.bot && message.channelId==config.CHANNEL_ID) {
     // Récupère le contenu du message
     const content = message.content.trim();
      //Vérifie si le contenu est un pseudo Minecraft
     const minecraftUsername = content.replace(/^@/, '');
-    const minecraftProfile = await fetch(MINECRAFT_API_URL + minecraftUsername)
+    const minecraftProfile = await fetch(config.MINECRAFT_API_URL + minecraftUsername)
       .then(response => {
         if (response.ok) {
           return response.json();
@@ -72,7 +67,7 @@ client.on('messageCreate', async message => {
         avatar_url: newMessage.avatarURL,
         content: newMessage.content
       };
-      await fetch(WEBHOOK_URL, {
+      await fetch(config.WEBHOOK_URL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
