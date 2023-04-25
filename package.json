@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "discord.js": "^14.0.0",
+    "minecraft-server-util": "^5.4.2",
     "node-fetch": "^2.6.9",
     "sheweny": "^4.0.0"
   },

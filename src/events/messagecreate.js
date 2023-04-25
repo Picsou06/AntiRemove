@@ -15,7 +15,8 @@ module.exports = class  extends Event {
       // Récupère le contenu du message
       const content = message.content.trim();
        //Vérifie si le contenu est un pseudo Minecraft
-      const minecraftUsername = content.replace(/^@/, '');
+      const minecraftUsername = content.replace(/^@/, '',);
+      console.log(minecraftUsername)
       const minecraftProfile = await fetch(config.MINECRAFT_API_URL + minecraftUsername)
         .then(response => {
           if (response.ok) {
@@ -38,7 +39,7 @@ module.exports = class  extends Event {
   
         // Supprime le message d'origine
         message.delete();
-  
+        
         // Envoie le nouveau message avec le webhook
         const webhookPayload = {
           username: newMessage.username,
