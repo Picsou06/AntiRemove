@@ -33,7 +33,15 @@ module.exports = class extends Command {
     // Crée un tableau de noms de channels à partir des IDs de channels enregistrés
     const channelNames = config.LIST_OF_CHANNELS.map((id) => {
       const channel = interaction.guild.channels.cache.get(id);
-      return channel ? channel.name : "Channel introuvable";
+      if (!channel) {
+        // Supprime l'ID du channel de la liste s'il n'est pas trouvé
+        const index = config.LIST_OF_CHANNELS.indexOf(id);
+        if (index !== -1) {
+          config.LIST_OF_CHANNELS.splice(index, 1);
+          fs.writeFileSync(configFile, JSON.stringify(config));
+        }
+      }
+      return channel.name;
     });
 
     // Répond à l'interaction avec la liste des noms de channels
