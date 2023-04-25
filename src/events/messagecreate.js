@@ -1,7 +1,6 @@
 const path = require('path');
 const { Event } = require("sheweny");
-
-const config = require(path.join(__dirname, "..", "..", 'config.json'));
+const fs = require("fs");
 
 module.exports = class  extends Event {
   constructor(client) {
@@ -11,6 +10,26 @@ module.exports = class  extends Event {
     });
   }
   async execute(message) {
+    const configFile = "./config.json"; // Chemin du fichier config.json
+    let config = {}; // Crée un objet vide
+
+    // Lit le contenu du fichier config.json
+    try {
+      const data = await fs.promises.readFile(configFile);
+      config = JSON.parse(data.toString());
+    } catch (err) {
+      console.error(err);
+      return message.reply({ content: "Une erreur est survenue", ephemeral: true });
+    }
+
+    // Vérifie si la liste existe déjà dans le fichier config.json, sinon la crée
+    if (!config.LIST_OF_CHANNELS) {
+      config.LIST_OF_CHANNELS = [];
+    }
+
+    console.log(config.LIST_OF_CHANNELS)
+    console.log(message.channelId)
+    console.log(config.LIST_OF_CHANNELS.includes(message.channelId))
     if (!message.author.bot && config.LIST_OF_CHANNELS.includes(message.channelId) && message.guild?.id === config.SERVER_ID) {
       // Récupère le contenu du message
       const content = message.content.trim();
