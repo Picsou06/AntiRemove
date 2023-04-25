@@ -10,13 +10,13 @@ module.exports = class  extends Event {
       once: false,
     });
   }
-  execute(message) {
+  async execute(message) {
     if (!message.author.bot && config.LIST_OF_CHANNELS.includes(message.channelId) && message.guild?.id === config.SERVER_ID) {
       // Récupère le contenu du message
       const content = message.content.trim();
        //Vérifie si le contenu est un pseudo Minecraft
       const minecraftUsername = content.replace(/^@/, '');
-      const minecraftProfile = fetch(config.MINECRAFT_API_URL + minecraftUsername)
+      const minecraftProfile = await fetch(config.MINECRAFT_API_URL + minecraftUsername)
         .then(response => {
           if (response.ok) {
             return response.json();
