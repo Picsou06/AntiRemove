@@ -3,9 +3,5 @@
   "SERVER_ID": "939468612815687680",
   "CHANNEL_ID": "1100112493784862720",
   "MINECRAFT_API_URL": "https://api.mojang.com/users/profiles/minecraft/",
-  "WEBHOOK_URL": "https://discord.com/api/webhooks/1100184486441918484/iGOaF09-jPG6JFmvDj8Ecn_gTibDwNYkmiWUCrZxusq_qnh_53ot75IyJ0fhd5W60qB9",
-  "LIST_OF_CHANNELS": [
-    "1100112493784862720",
-    "1100097568077258944"
-  ]
+  "LIST_OF_CHANNELS": []
 }

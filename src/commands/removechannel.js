@@ -17,6 +17,22 @@ module.exports = class extends Command {
     const configFile = "./config.json";
     let config = {};
 
+
+    try {
+      const webhooks = await interaction.channel.fetchWebhooks();
+      const webhook = webhooks.find(wh => wh.token);
+  
+      if (!webhook) {
+        return console.log('No webhook was found that I can use!');
+      }
+      await webhook.delete()
+        .then(msg => console.log(`Deleted webhooks from ${msg}`))
+        .catch(console.error);
+
+    } catch (error) {
+      console.error('Error trying to send a message: ', error);
+    } 
+
     try {
       const data = await fs.promises.readFile(configFile);
       config = JSON.parse(data.toString());

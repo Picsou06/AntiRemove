@@ -18,6 +18,12 @@ module.exports = class extends Command {
     const configFile = "./config.json";
     let config = {};
 
+    interaction.channel.createWebhook({
+      name: "Antiremove " + interaction.guild.channels.cache.get(channelId).name,
+      avatar: 'https://i.imgur.com/mI8XcpG.jpg',
+      reason: 'Anti remove pour le channel ' + interaction.guild.channels.cache.get(channelId).name
+    })
+
     try {
       const data = await fs.promises.readFile(configFile);
       config = JSON.parse(data.toString());

@@ -27,15 +27,11 @@ module.exports = class  extends Event {
       config.LIST_OF_CHANNELS = [];
     }
 
-    console.log(config.LIST_OF_CHANNELS)
-    console.log(message.channelId)
-    console.log(config.LIST_OF_CHANNELS.includes(message.channelId))
     if (!message.author.bot && config.LIST_OF_CHANNELS.includes(message.channelId) && message.guild?.id === config.SERVER_ID) {
       // Récupère le contenu du message
       const content = message.content.trim();
        //Vérifie si le contenu est un pseudo Minecraft
       const minecraftUsername = content.replace(/^@/, '',);
-      console.log(minecraftUsername)
       const minecraftProfile = await fetch(config.MINECRAFT_API_URL + minecraftUsername)
         .then(response => {
           if (response.ok) {
@@ -49,32 +45,26 @@ module.exports = class  extends Event {
         message.delete();
         console.log(`Message supprimé : "${content}"`);
       } else {
-        // Créer un nouveau message avec le même pseudo et photo de profil
-        const newMessage = {
-          content: content,
-          avatarURL: message.author.avatarURL(),
-          username: message.author.username,
-        };
-  
         // Supprime le message d'origine
         message.delete();
-        
-        // Envoie le nouveau message avec le webhook
-        const webhookPayload = {
-          username: newMessage.username,
-          avatar_url: newMessage.avatarURL,
-          content: newMessage.content
-        };
-        fetch(config.WEBHOOK_URL, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(webhookPayload)
-        });
-  
+
+        try {
+          const webhooks = await message.channel.fetchWebhooks();
+          const webhook = webhooks.find(wh => wh.token);
+      
+          if (!webhook) {
+            return console.log('No webhook was found that I can use!');
+          }
+          await webhook.send({
+            content: content,
+            username: message.author.username,
+            avatarURL: message.author.avatarURL(),
+          });
+        } catch (error) {
+          console.error('Error trying to send a message: ', error);
+        }
+      }
         console.log(`Message remplacé : "${content}"`);
       }
     }
   }
-};
