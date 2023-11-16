@@ -30,23 +30,8 @@ module.exports = class  extends Event {
     if (!message.author.bot && config.LIST_OF_CHANNELS.includes(message.channelId) && message.guild?.id === config.SERVER_ID) {
       // Récupère le contenu du message
       const content = message.content.trim();
-       //Vérifie si le contenu est un pseudo Minecraft
-      const minecraftUsername = content.replace(/^@/, '',);
-      const minecraftProfile = await fetch(config.MINECRAFT_API_URL + minecraftUsername)
-        .then(response => {
-          if (response.ok) {
-            return response.json();
-          } else {
-            throw new Error("Le profil Minecraft n'existe pas");
-          }
-        })
-        .catch(() => null);
-      if (!minecraftProfile) {
-        message.delete();
-        console.log(`Message supprimé : "${content}"`);
-      } else {
-        // Supprime le message d'origine
-        message.delete();
+      // Supprime le message d'origine
+      message.delete();
 
         try {
           const webhooks = await message.channel.fetchWebhooks();
