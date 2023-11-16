@@ -1,7 +1,6 @@
 {
-  "DISCORD_TOKEN": "MTEwMDExMDg2NDU3MDQwMDgwOA.GTI-1y.YmCIim3rc7oK0sJIoiPvPSi6XdDmvc29bIQo1A",
-  "SERVER_ID": "939468612815687680",
-  "CHANNEL_ID": "1100112493784862720",
+  "DISCORD_TOKEN": "Your-Discord-Token",
+  "SERVER_ID": "YourServerID",
   "MINECRAFT_API_URL": "https://api.mojang.com/users/profiles/minecraft/",
   "LIST_OF_CHANNELS": []
 }
